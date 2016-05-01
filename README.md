@@ -1,14 +1,23 @@
 # Hornwell website
 
 ## Docker
-On OSX, you need to start a custom docker "host"
+
+## Initial setup
+
+Install Docker and Docker-compose tools. Follow docker documentation
+
+On OSX, you'll need to start the virtual Linux environment:
 
     docker-machine start default
     eval $(docker-machine env)
-    docker build -t hornwell-website .
-    docker run --name dev-hornwell-website -d hornwell-website
-    docker run --name dev-hornwell-website -p 8080:3000 -d hornwell-website
 
-docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app ruby:2.1 bundle install
+TIP: Think about putting `eval $(docker-machine env)` in your `~/.bashrc` our `~/.zshrc` file
+TIP: You need to restart this machine when you switch network, and of course, refresh your env
 
-docker run -it --rm --user "$(id -u):$(id -g)" -v "$PWD":/usr/src/app -w /usr/src/app rails rails new --skip-bundle webapp
+## Project setup
+
+docker-compose run web bundle exec rake db:setup
+
+## Updating docker configuration
+
+When you're updating docker configuration (Dockerfile or docker-compose.yml), you'll need to rebuild your docker images this way with this command: `docker-compose build`

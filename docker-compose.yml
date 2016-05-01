@@ -1,0 +1,32 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.7.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: adc3db04f47f
+  memcached:
+    image: memcached
+  redis:
+    image: redis:3.0.7
+    ports:
+      - '6379:6379'
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    environment:
+      SECRET_KEY_BASE: adc3db04f47fa7a928b2f933c62cff7f17d08b6e77f4b930764c16bcccd1275b8f36337dbd1969d732617676b08d0330c1690ae0b2a8299aefca460f2ddfdc80
+      RAILS_ENV: development
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - memcached
+      - redis
+    links:
+      - db
+      - memcached
+      - redis
