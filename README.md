@@ -16,7 +16,11 @@ TIP: You need to restart this machine when you switch network, and of course, re
 
 ## Project setup
 
-docker-compose run web bundle exec rake db:setup
+    docker-compose down # If instance already exists
+    docker-compose build # Build instance according to the configuration
+    docker-compose up # start services
+    // In a new terminal
+    docker-compose run web bundle exec rake db:create db:migrate # Create and migrate database
 
 ## Updating docker configuration
 
