@@ -18,8 +18,12 @@ TIP: You need to restart this machine when you switch network, and of course, re
 
     docker-compose down # If instance already exists
     docker-compose build # Build instance according to the configuration
-    docker-compose up # start services
-    // In a new terminal
+    docker-compose up *****OR****** docker-compose up --build # start services 
+    echo $DOCKER_HOST # to get your IP
+    curl -I http://YOUR-IP:3000 # instead of localhost:3000
+    ***********************
+    || In a new terminal ||
+    ***********************
     docker-compose run web bundle exec rake db:create db:migrate # Create and migrate database
 
 ## Updating docker configuration
